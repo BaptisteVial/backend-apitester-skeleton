@@ -23,5 +23,11 @@ evenements_df = pd.read_csv(data / 'evenements_associations.csv')
 def alive():
     return jsonify({"message": "Alive"}), 200
 
+# Liste de toutes les associations
+@app.route("/api/associations", methods=["GET"])
+def list_associations():
+    ids = associations_df["id"].tolist()
+    return jsonify(ids), 200
+
 if __name__ == '__main__':
     app.run(debug=False)
