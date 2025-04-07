@@ -43,5 +43,15 @@ def list_evenements():
     ids = evenements_df["id"].tolist()
     return jsonify(ids), 200
 
+# Détails d'un événement
+@app.route("/api/evenement/<int:id>", methods=["GET"])
+def detail_evenement(id):
+    event = evenements_df[evenements_df["id"] == id]
+    if event.empty:
+        return jsonify({"error": "Event not found"}), 404
+    return jsonify(event.iloc[0].to_dict()), 200
+
+# Le code est quasi identique, on avait juste à changer le nom du dataframe
+
 if __name__ == '__main__':
     app.run(debug=False)
