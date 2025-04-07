@@ -29,5 +29,13 @@ def list_associations():
     ids = associations_df["id"].tolist()
     return jsonify(ids), 200
 
+# Détails d'une association
+@app.route("/api/association/<int:id>", methods=["GET"])
+def detail_association(id):
+    assoc = associations_df[associations_df["id"] == id]
+    if assoc.empty:
+        return jsonify({"error": "Association not found"}), 404
+    return jsonify(assoc.iloc[0].to_dict()), 200
+
 if __name__ == '__main__':
     app.run(debug=False)
