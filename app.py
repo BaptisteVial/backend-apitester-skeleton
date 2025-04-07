@@ -53,5 +53,18 @@ def detail_evenement(id):
 
 # Le code est quasi identique, on avait juste à changer le nom du dataframe
 
+# Liste des événements d'une association
+@app.route("/api/association/<int:id>/evenements", methods=["GET"])
+def events_by_association(id):
+    assoc_events = evenements_df[evenements_df["association_id"] == id]
+    events = assoc_events.to_dict(orient="records")
+    return jsonify(events), 200
+
+# Liste des associations par type
+@app.route("/api/associations/type/<type>", methods=["GET"])
+def associations_by_type(type):
+    filtered = associations_df[associations_df["type"].str.lower() == type.lower()]
+    return jsonify(filtered.to_dict(orient="records")), 200
+
 if __name__ == '__main__':
     app.run(debug=False)
