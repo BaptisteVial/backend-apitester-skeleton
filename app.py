@@ -37,5 +37,11 @@ def detail_association(id):
         return jsonify({"error": "Association not found"}), 404
     return jsonify(assoc.iloc[0].to_dict()), 200
 
+# Liste de tous les événements
+@app.route("/api/evenements", methods=["GET"])
+def list_evenements():
+    ids = evenements_df["id"].tolist()
+    return jsonify(ids), 200
+
 if __name__ == '__main__':
     app.run(debug=False)
