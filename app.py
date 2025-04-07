@@ -18,7 +18,10 @@ evenements_df = pd.read_csv(data / 'evenements_associations.csv')
 
 ## Vous devez ajouter les routes ici : 
 
-
+# Vérifie si le serveur est actif
+@app.route("/api/alive", methods=["GET"])
+def alive():
+    return jsonify({"message": "Alive"}), 200
 
 if __name__ == '__main__':
     app.run(debug=False)
